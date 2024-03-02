@@ -2,7 +2,7 @@ BUILD_DIR := ./build
 OUT_DIR := .
 SOURCE_DIR := ./src
 SOLVER_NAME := ade-ce-solver
-MAIN_CLASS := clusterediting.exact.ClusterEditingSolver
+MAIN_CLASS := de.umr.pace.clusterediting.exact.ClusterEditingSolver
 
 main:
 	mkdir -p ${BUILD_DIR}
