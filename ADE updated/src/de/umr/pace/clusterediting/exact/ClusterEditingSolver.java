@@ -84,7 +84,7 @@ public class ClusterEditingSolver {
 
         // solve for each components independently
         for (Graph g : components) {
-            //System.out.println("Solving for a component");
+            
             currentGraphNodesSize = g.nodes.size();
             Edge.initializeStaticVariables(g);
             ManyNeighbors.appliedSize = 0;
@@ -98,7 +98,9 @@ public class ClusterEditingSolver {
             greatestKNotSolvable = staticK - 1;
 
             if (staticK == upperBound) {
-                result.addAll(upperBoundSet.stream().map(edge -> new Edge(graph.nodes.get(edge.a.getID()), graph.nodes.get(edge.b.getID()))).collect(Collectors.toList()));
+                result.addAll(upperBoundSet.stream().map(
+                    edge -> new Edge(graph.nodes.get(edge.a.getID()), graph.nodes.get(edge.b.getID()))).
+                    collect(Collectors.toList()));
                 continue;
             }
 
@@ -132,7 +134,8 @@ public class ClusterEditingSolver {
             int minimal_possible_k = upperBound - 1;
             while(lower_bound <= upper_bound) {
                 int mid = (lower_bound + upper_bound) / 2;
-                if (branch(g, mid)) {
+                staticK = mid;
+                if (branch(g, initialReductionResult.size())) {
                     upper_bound = mid - 1;
                     minimal_possible_k = mid;
                 } else {
@@ -140,9 +143,12 @@ public class ClusterEditingSolver {
                 }
             }
             if( minimal_possible_k == upperBound - 1) {
-                result.addAll(upperBoundSet.stream().map(edge -> new Edge(graph.nodes.get(edge.a.getID()), graph.nodes.get(edge.b.getID()))).collect(Collectors.toList()));
+                result.addAll(upperBoundSet.stream().map(
+                    edge -> new Edge(graph.nodes.get(edge.a.getID()), graph.nodes.get(edge.b.getID()))).
+                    collect(Collectors.toList()));
             } else {
-                branch(g, minimal_possible_k);
+                staticK = minimal_possible_k;
+                branch(g, initialReductionResult.size());
                 result.addAll(initialReductionResult);
                 result.addAll(smallestResFound);
             }

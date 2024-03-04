@@ -10,4 +10,4 @@ java -Xss8m -jar ade-ce-solver.jar < exact/$input > modified_graph.txt
 # Copy contents excluding the first line
 tail -n +2 exact/$input > main_graph.txt
 
-./output
+./output2

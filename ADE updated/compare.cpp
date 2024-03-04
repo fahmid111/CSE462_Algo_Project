@@ -23,6 +23,23 @@ bool is_cluster(int graph[N][N]){
     return true;
 }
 
+
+void checkFor3Cycle(int graph[N][N]){
+    vector<int> components;
+    for(int i=0;i<N;i++){
+        components.clear();
+        components.push_back(i);
+        for(int j=0;j<N;j++){
+            if(graph[i][j] == 1){
+                components.push_back(j);
+            }
+        }
+    }
+    if( components.size() == 3 ){
+        cout<<components[0]<<" "<<components[1]<<" "<<components[2]<<endl;
+    }
+}
+
 int main(){
 
     ifstream main_graph_file("main_graph.txt");
@@ -67,6 +84,7 @@ int main(){
     cout << "in original graph:" << endl;
     cout << "Edge Add: " << edge_add/2 << endl;
     cout << "Edge Del: " << edge_del/2 << endl;
+    cout << "Total Mod: " << edge_add/2 + edge_del/2 << endl;
 
     edge_add = 0;
     edge_del = 0;
@@ -88,6 +106,8 @@ int main(){
     cout << "in modified graph:" << endl;
     cout << "Edge Add: " << edge_add/2 << endl;
     cout << "Edge Del: " << edge_del/2 << endl;
+    cout << "Total Mod: " << edge_add/2 + edge_del/2 << endl;
+
 
     // cout<<is_cluster(main_graph)<<endl;
     // cout<<is_cluster(original_graph)<<endl;
@@ -99,6 +119,8 @@ int main(){
     if( !is_cluster(modified_graph) ){
         cout<<"Modified Not a cluster"<<endl;
     }
+
+    checkFor3Cycle(modified_graph);
 
 
 }
